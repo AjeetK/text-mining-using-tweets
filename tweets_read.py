@@ -15,3 +15,7 @@ for line in tweets_file:
 
 #print tweets_data
 print len(tweets_data)
+tweets =  pd.DataFrame()
+tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
+tweets_by_language = tweets['text'].count
+print tweets_by_language
