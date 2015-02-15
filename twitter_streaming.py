@@ -29,5 +29,10 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
+    with open('hashtag_tweets.txt') as hf:
+    	hashtag = [line.strip() for line in hf]
+    	print hashtag
+  #   	keywords = ["crude oil", "robotics", "social unrest"] 
+		# stream.filter(track=keywords, languages=["en"])
     #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
-    stream.filter(track=['python', 'javascript', 'ruby'])
+    stream.filter(track=hashtag)
