@@ -1,5 +1,7 @@
 import json
 import re
+import numpy as np
+from matplotlib import pyplot as plt
 
 twitter_data_file = 'twitter_data.txt'
 
@@ -42,33 +44,37 @@ def hashtags_related_to(lang,text):
 
 	
 
-
+languages = ["python","ruby","javascript"]
 # for tweet in tweets:
 # 	hashtags_related_to(tweet)
-rtags = [hashtags_related_to('ruby',tweet) for tweet in tweets]
+rtags = []
+
+rtags = [hashtags_related_to(item,tweet) for item in languages for tweet in tweets]
+#rtags = [hashtags_related_to('python',tweet) for tweet in tweets]
+
 print "list"
 rtags = filter(None,rtags)
 
 
 
-ruby_tags = []
+all_tags = []
 for i in rtags:
-  if i not in ruby_tags:
-    ruby_tags.append(i)
+  if i not in all_tags:
+    all_tags.append(i)
 # for item in ruby_tags:
 # 	print item
 print "lenth of rtags"
 print len(rtags)
 
 #### writing list of hashtags to a file hashtag_tweets.txt
-with open('hashtag_tweets.txt','w') as hf:
-	for item in rtags:
+with open('hashtags.txt','w') as hf:
+	for item in all_tags:
 		hf.write("%s\n" %item)
 
 
 #### appending tags for key-ruby in hashtags dictionary
-for item in ruby_tags:
-	hashtags["ruby"].append(item)
+# for item in ruby_tags:
+# 	hashtags["ruby"].append(item)
 
 print len(hashtags)
 for k in hashtags:
@@ -125,5 +131,19 @@ print "No. of javascript related positive tweets are :"
 print len(javascript_positive)
 
 
-#^#(.*)+python+(.*)
-#.*?.*
+
+
+#### Plotting figur
+OX = ["python", "ruby", "javascript"]
+OY = [len(python_positive), len(ruby_positive), len(javascript_positive)]
+print OY
+fig = plt.figure()
+
+width = .35
+ind = np.arange(len(OY))
+plt.bar(ind, OY)
+plt.xticks(ind + width / 2, OX)
+
+fig.autofmt_xdate()
+plt.show()
+#plt.savefig("figure.pdf")

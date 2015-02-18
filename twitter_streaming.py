@@ -36,3 +36,4 @@ if __name__ == '__main__':
 		# stream.filter(track=keywords, languages=["en"])
     #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
     stream.filter(track=hashtag)
+    
